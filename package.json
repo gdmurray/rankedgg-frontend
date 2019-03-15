@@ -32,6 +32,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "dotenv": "^7.0.0",
     "redux-devtools": "^3.5.0"
   }
 }

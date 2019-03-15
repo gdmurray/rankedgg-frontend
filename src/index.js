@@ -6,6 +6,8 @@ import './index.css';
 import 'semantic-ui-css/semantic.min.css'
 import App from './app/App';
 
+require('dotenv').config();
+
 render((
     <BrowserRouter>
         <App/>

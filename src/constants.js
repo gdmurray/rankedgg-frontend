@@ -1,4 +1,7 @@
-export const BACKEND_URL = "http://127.0.0.1:8080/api/";
+
+export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+console.log("Backend URL " + BACKEND_URL);
+console.log(process.env);
 export const OPERATOR_DROPDOWN_URL =  BACKEND_URL + "dropdown/operator_list";
 export const SEARCH_R6TAB_USERNAME_URL = BACKEND_URL + "r6tab/username/"; 
 export const SUBMIT_REPORT_USER = BACKEND_URL + "report/submit/";
