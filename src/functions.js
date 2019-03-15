@@ -8,6 +8,14 @@ export const getRegion = () =>{
     }
 }
 
+export const getRegionQuery = () =>{
+    var region = getRegion();
+    if(region === "GLOBAL"){
+        return ""
+    }else{
+        return "?region="+region;
+    }
+}
 export const setRegion = (region) =>{
     localStorage.setItem("region", region);
 }

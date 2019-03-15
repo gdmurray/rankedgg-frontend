@@ -41,10 +41,16 @@ class App extends Component {
     })
   }
 
+  closeModalCallback = () => {
+    console.log("closing modal from app");
+    this.setState({
+      showModal: false
+    })
+  }
   render() {
     const App = () => (
       <div>
-        <ReportModal showModal={this.state.showModal}/>
+        <ReportModal showModal={this.state.showModal} closeModalCallback={this.closeModalCallback}/>
         <Navbar onReportCallback={this.openModalCallback} homeCallback={this.goHome} searchCallback={this.searchUser}>
         </Navbar>
         <div className="App-content">

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Redirect, withRouter} from 'react-router-dom';
-import {REGION_OPTIONS, REGION_TEXT_MAP, REGION_VALUE_MAP} from "../../../constants";
+//import {Redirect, withRouter} from 'react-router-dom';
+import {REGION_TEXT_MAP, REGION_VALUE_MAP} from "../../../constants";
 import {getRegion, setRegion} from "../../../functions";
 import {
   Button,

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Icon, Label, Grid, Image} from 'semantic-ui-react';
+import {Grid} from 'semantic-ui-react';
 
 export const Attacker = "attacker";
 export const Defender = "defender";
@@ -20,14 +20,14 @@ export default class SelectOperatorDialogue extends Component{
     }
 
     attackerSelected = () => {
-        if (this.state.value == Attacker){
+        if (this.state.value === Attacker){
             return "selected-attacker";
         }
         return '';
     }
 
     defenderSelected = () => {
-        if (this.state.value == Defender){
+        if (this.state.value === Defender){
             return "selected-defender";
         }
         return '';

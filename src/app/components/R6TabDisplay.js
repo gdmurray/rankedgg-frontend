@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Dimmer, Loader} from 'semantic-ui-react';
-import {SEARCH_R6TAB_USERNAME_URL} from '../../constants';
+import {Dimmer, Loader, Popup, Icon} from 'semantic-ui-react';
+import {SEARCH_R6TAB_USERNAME_URL, REGION_TEXT_MAP} from '../../constants';
 const axios = require('axios');
 export default class R6TabDisplay extends Component{
 
@@ -14,7 +14,7 @@ export default class R6TabDisplay extends Component{
                 rank: null,
                 image: null
             },
-            newSearch: false
+            newSearch: false,
         }
     }
     
@@ -33,8 +33,15 @@ export default class R6TabDisplay extends Component{
     }
 
     componentDidUpdate(){
-        if(this.state.username !== undefined && this.state.newSearch == true){
-            axios.get(SEARCH_R6TAB_USERNAME_URL + this.state.username).then((response) => {
+        if(this.state.username !== undefined && this.state.newSearch === true){
+            if(this.props.region !== "GLOBAL"){
+                var query = "?region="+this.props.region
+            }else{
+                query = "";
+            }
+            console.log("query " + query);
+            const {username} = this.state;
+            axios.get(SEARCH_R6TAB_USERNAME_URL + this.state.username + query).then((response) => {
                 this.setState({
                     lastSearched: this.state.username,
                     username: response.data.username,
@@ -45,10 +52,10 @@ export default class R6TabDisplay extends Component{
                     isSearching: false,
                     isFound: true
                 });
-                this.props.endSearchCallback();
+                this.props.endSearchCallback(username);
             }).catch((error) => {
                 this.setState({isSearching: false, isFound: false});
-                this.props.searchFailedCallback();
+                this.props.searchFailedCallback(username);
             })
         }
     }
@@ -60,7 +67,7 @@ export default class R6TabDisplay extends Component{
                     <Loader inverted>Loading</Loader>
                 </Dimmer>
             )
-        }else if(isFound == false && username !== undefined){
+        }else if(isFound == false && username !== undefined && this.state.newSearch == true){
             return (
                 <div className="no-results">No results for {this.state.username}</div>
             )
@@ -75,6 +82,9 @@ export default class R6TabDisplay extends Component{
                     </div>
                     <div className="username">
                         <span>{this.state.username}</span>
+                        <Popup trigger={<Icon circular name='question' />}>
+                            Only showing results for selected region: {REGION_TEXT_MAP[this.props.region]}
+                        </Popup>
                     </div>
                 </div>
             )

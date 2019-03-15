@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { Button, Form, Image, Modal, Icon, Grid, Dropdown} from 'semantic-ui-react'
+import { Form,Grid, Dropdown} from 'semantic-ui-react'
 import SelectOperatorDialogue, {Attacker, Defender} from './SelectOperatorDialogue';
-import {OPERATOR_DROPDOWN_URL, SUBMIT_REPORT_USER, REGION_OPTIONS} from '../../constants';
+import {OPERATOR_DROPDOWN_URL, SUBMIT_REPORT_USER, REGION_OPTIONS, DEFAULT_REGION} from '../../constants';
 import {getRegion} from "../../functions";
 import R6TabDisplay from './R6TabDisplay';
 const axios = require('axios');
@@ -21,7 +21,8 @@ export default class ReportForm extends Component{
             usernameError: false,
             operatorTypeSelected: null,
             selectedOperator: null,
-            validUser: false
+            validUser: false,
+            username: null
         }
     }
 
@@ -29,26 +30,34 @@ export default class ReportForm extends Component{
         var validUser = (this.state.validUser == true);
         var typeSelected = (this.state.operatorTypeSelected != null);
         var opSelected = (this.state.selectedOperator != null);
-        console.log(validUser, typeSelected, opSelected);
         if(validUser && typeSelected && opSelected){
             return false
         }else{
             return true
         }
     }
-    searchFound = () => {
-        this.setState({
-            isSearching: false,
-            validUser: true
-        });
+    searchFound = (username) => {
+        if(username == this.state.username){
+            this.setState({
+                isSearching: false,
+                validUser: true,
+                usernameError: false
+            });
+        }else{
+            console.log("received searchFound for non-active username")
+        }
     }
 
-    searchError = () => {
+    searchError = (username) => {
         if(!(this.state.username == "" || this.state.username == undefined)){
-            this.setState({
-                usernameError: true,
-                isSearching: false
-            });
+            if(username == this.state.username){
+                this.setState({
+                    usernameError: true,
+                    isSearching: false
+                });
+            }else{
+                console.log("received error from different username " + username + " current is " + this.state.username);
+            }
         }else{
             this.setState({
                 isSearching: false
@@ -59,7 +68,7 @@ export default class ReportForm extends Component{
         var searchText = evt.target.value; // this is the search text
         if(this.timeout) clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
-            console.log("changed username to " + searchText);
+            console.log("Changed username to " + searchText);
             if(searchText != ""){
                 this.setState({
                     usernameError: false,
@@ -102,10 +111,16 @@ export default class ReportForm extends Component{
     }
 
     submitForm = () => {
+        console.log("submit form?");
         axios.post(SUBMIT_REPORT_USER, {
             username: this.state.username,
             operator: this.state.selectedOperator,
             region: this.state.regionSelected
+        }).then((response) => {
+            console.log(response);
+            this.props.closeCallback();
+        }).catch((error)=>{
+            console.log(error);
         })
     }
     componentDidMount(){
@@ -142,7 +157,7 @@ export default class ReportForm extends Component{
                             <Form.Input error={this.state.usernameError} loading={this.state.isSearching} onChange={(evt) => this.scanSearch(evt)} fluid label='Username' placeholder='Username' />
                         </Grid.Column>
                         <Grid.Column>
-                            <R6TabDisplay username={username} endSearchCallback={this.searchFound} searchFailedCallback={this.searchError}/>
+                            <R6TabDisplay username={username} region={this.state.regionSelected} endSearchCallback={this.searchFound} searchFailedCallback={this.searchError}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

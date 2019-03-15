@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Button} from 'semantic-ui-react';
+import {Modal} from 'semantic-ui-react';
 import ReportForm from './ReportForm';
 
 export default class ReportModal extends Component{
@@ -11,7 +11,11 @@ export default class ReportModal extends Component{
     }
     
     openModal = () => this.setState({ showModal: true })
-    closeModal = () => this.setState({ showModal: false })
+
+    closeModal = () => {
+        this.setState({ showModal: false });
+        this.props.closeModalCallback();
+    }
 
     componentWillReceiveProps(newProps){
         console.log(newProps);
@@ -31,7 +35,7 @@ export default class ReportModal extends Component{
           onClose={this.closeModal}
           size='large'>
           <Modal.Content>
-            <ReportForm/>
+            <ReportForm closeCallback={this.closeModal}/>
           </Modal.Content>
         </Modal>
         )
