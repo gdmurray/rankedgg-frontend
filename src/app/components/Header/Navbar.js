@@ -41,6 +41,7 @@ export default class Navbar extends Component {
       this.setState({
         region: value,
       });
+      this.props.refreshCallback();
     }
     
     handleChange = (e) => {

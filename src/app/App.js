@@ -41,6 +41,9 @@ class App extends Component {
     })
   }
 
+  refresh = () => {
+    this.forceUpdate();
+  }
   closeModalCallback = () => {
     console.log("closing modal from app");
     this.setState({
@@ -51,7 +54,7 @@ class App extends Component {
     const App = () => (
       <div>
         <ReportModal showModal={this.state.showModal} closeModalCallback={this.closeModalCallback}/>
-        <Navbar onReportCallback={this.openModalCallback} homeCallback={this.goHome} searchCallback={this.searchUser}>
+        <Navbar onReportCallback={this.openModalCallback} homeCallback={this.goHome} refreshCallback={this.refresh} searchCallback={this.searchUser}>
         </Navbar>
         <div className="App-content">
           <Switch>

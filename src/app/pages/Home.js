@@ -137,6 +137,13 @@ class Home extends Component {
                 </Table>
             </div>
         )
+      }else{
+        return (
+          <div>
+            <span className="no-data">No Attacker Data</span>
+              <img src={process.env.PUBLIC_URL + "/img/bluesmoke.png"} className="smoke-image" />
+          </div>
+        )
       }
     }
   }
@@ -162,6 +169,13 @@ class Home extends Component {
                   </Table.Body>
                 </Table>
             </div>
+        )
+      }else{
+        return (
+          <div>
+            <span className="no-data">No Defender Data</span>
+              <img src={process.env.PUBLIC_URL + "/img/orangesmoke.png"} className="smoke-image" />
+          </div>
         )
       }
     }

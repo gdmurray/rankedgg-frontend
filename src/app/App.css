@@ -393,6 +393,10 @@
     z-index: 1000;
 }
 
+.home-wrapper span.no-data{
+  bottom: -260px !important;
+}
+
 .smoke-image{
   position: absolute;
   top: 220px;

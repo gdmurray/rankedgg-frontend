@@ -84,6 +84,7 @@ export default class SearchResults extends Component{
 
     componentDidMount(){
         const path = this.props.location.search;
+        console.log(path);
         if(path.length > 2){
             var editedPath = path.replace("?=", '');
             var region = getRegion();
