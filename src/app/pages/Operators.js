@@ -162,9 +162,8 @@ export default class Operators extends Component{
     }
 
     fetchOperators = () => {
-        const {useRegion} = this.state;
         var query = "";
-        if(useRegion){
+        if(this.state.useRegion){
             query = getRegionQuery();
         }
         console.log("Fetching Operators from Server");
@@ -199,10 +198,10 @@ export default class Operators extends Component{
     }
     
     filterRegion = (value) => {
+        console.log(value);
         this.setState({
             useRegion: value
-        });
-        this.fetchOperators();
+        }, () => {this.fetchOperators();});
     }
 
     openOperatorModal = (operator) => {
