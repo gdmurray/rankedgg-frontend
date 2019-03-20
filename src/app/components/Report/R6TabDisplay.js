@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Dimmer, Loader, Popup, Icon} from 'semantic-ui-react';
-import {SEARCH_R6TAB_USERNAME_URL, REGION_TEXT_MAP} from '../../constants';
+import {SEARCH_R6TAB_USERNAME_URL, REGION_TEXT_MAP} from '../../../constants';
 const axios = require('axios');
 export default class R6TabDisplay extends Component{
 
@@ -54,6 +54,8 @@ export default class R6TabDisplay extends Component{
                 });
                 this.props.endSearchCallback(username);
             }).catch((error) => {
+                console.log(error);
+                console.log(this.state.newSearch);
                 this.setState({isSearching: false, isFound: false});
                 this.props.searchFailedCallback(username);
             })
@@ -67,7 +69,7 @@ export default class R6TabDisplay extends Component{
                     <Loader inverted>Loading</Loader>
                 </Dimmer>
             )
-        }else if(isFound == false && username !== undefined && this.state.newSearch == true){
+        }else if(isFound == false && username !== undefined){
             return (
                 <div className="no-results">No results for {this.state.username}</div>
             )
@@ -83,7 +85,7 @@ export default class R6TabDisplay extends Component{
                     <div className="username">
                         <span>{this.state.username}</span>
                         <Popup trigger={<Icon circular name='question' />}>
-                            Only showing results for selected region: {REGION_TEXT_MAP[this.props.region]}
+                            Only showing results for selected region: <b>{REGION_TEXT_MAP[this.props.region]}</b>
                         </Popup>
                     </div>
                 </div>

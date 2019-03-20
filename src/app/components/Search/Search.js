@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {SEARCH_USER} from "../../constants";
-import {getRegion} from "../../functions";
+import {SEARCH_USER} from "../../../constants";
+import {getRegion} from "../../../functions";
 import {Item} from "semantic-ui-react";
+import "./Search.css";
 
 const axios = require('axios');
 

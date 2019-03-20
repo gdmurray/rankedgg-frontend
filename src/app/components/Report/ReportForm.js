@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { Form,Grid, Dropdown} from 'semantic-ui-react'
 import SelectOperatorDialogue, {Attacker, Defender} from './SelectOperatorDialogue';
-import {OPERATOR_DROPDOWN_URL, SUBMIT_REPORT_USER, REGION_OPTIONS, DEFAULT_REGION} from '../../constants';
-import {getRegion} from "../../functions";
+import {OPERATOR_DROPDOWN_URL, SUBMIT_REPORT_USER, REGION_OPTIONS, DEFAULT_REGION} from '../../../constants';
+import {getRegion} from "../../../functions";
 import R6TabDisplay from './R6TabDisplay';
 const axios = require('axios');
 

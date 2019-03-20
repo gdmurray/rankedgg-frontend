@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter} from 'react-router-dom';
 import './App.css';
-import './components/report.css';
 import Home from './pages/Home';
-import Navbar from './components/Header/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer';
 import { Button, Header, Image, Modal, Icon } from 'semantic-ui-react'
-import TestPage from './pages/Test';
-import ReportModal from './components/ReportModal';
-import SearchResults from './pages/Search';
+import ReportModal from './components/Report/ReportModal';
+import SearchResults from './components/Search/Search';
+import Operators from './pages/Operators';
 
 class App extends Component {
   constructor(props){
@@ -50,17 +49,21 @@ class App extends Component {
       showModal: false
     })
   }
+
+  routeCallback = (route) => {
+    this.props.history.push(route);
+  }
   render() {
     const App = () => (
-      <div>
+      <div className="App-body">
         <ReportModal showModal={this.state.showModal} closeModalCallback={this.closeModalCallback}/>
-        <Navbar onReportCallback={this.openModalCallback} homeCallback={this.goHome} refreshCallback={this.refresh} searchCallback={this.searchUser}>
+        <Navbar routeCallback={this.routeCallback}onReportCallback={this.openModalCallback} homeCallback={this.goHome} refreshCallback={this.refresh} searchCallback={this.searchUser}>
         </Navbar>
         <div className="App-content">
           <Switch>
-            <Route exact path='/search' component={SearchResults} />}/>
             <Route exact path='/' component={Home}/>
-            <Route exact path='/test' component={TestPage}/>
+            <Route exact path='/search' component={SearchResults} />}/>
+            <Route exact path="/operators" component={Operators}/>
           </Switch>
         </div>
         <Footer/>

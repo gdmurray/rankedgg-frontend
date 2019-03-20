@@ -1,0 +1,128 @@
+.report-username-form-wrapper{
+    display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.report-username-form .username-column{
+    flex-grow: 1;
+}
+
+.report-username-form .info-column{
+    flex-grow: 2;
+}
+
+
+.operator-select-wrapper [hidden]{
+    display: none !important;
+  }
+  
+  .select-operator-dialogue{
+    margin-left: 12% !important;
+    width: 90% !important;
+    margin-top: 0rem !important;
+  }
+  .operator-type-wrapper{
+    display: inline-flex;
+  }
+  .operator-type-wrapper img{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 6px;
+    left: 10px;
+  }
+  
+  .operator-type-wrapper h3{
+    margin-top: -3px;
+    margin-left: 16px;
+    font-size: 2rem;
+    color: #4a4a4a;
+  }
+  
+  .select-operator-dropdown{
+    width: 60% !important;
+    margin-left: 16% !important;
+  }
+  
+  .select-operator-dialogue .column:hover{
+    cursor: pointer;
+  }
+  
+  .select-operator-dialogue .column.attacker:hover h3{
+    color: #0E6EB8;
+  }
+  /*
+  .select-operator-dialogue .column.attacker:hover img{
+    box-shadow: 0px 0px 4px 0px #0E6EB8;
+  }
+  .select-operator-dialogue .column.defender:hover img{
+    box-shadow: 0px 0px 4px 0px #FE9A76;
+  }
+  */
+  .select-operator-dialogue .column.defender:hover .defender h3{
+    color: #FE9A76;
+  }
+  
+  
+  
+  .selected-attacker{
+    color: #2185d0 !important;
+  }
+  
+  .selected-defender{
+    color: #f26202 !important;
+  }
+  
+  .r6-tab-wrapper{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .r6-tab-wrapper div:not(:last-child){
+    flex: 1 0 0;
+  }
+  
+  .r6-tab-wrapper div:last-child{
+    flex: 3 0 0;
+  }
+  
+  
+  .r6-tab-wrapper .pfp img{
+    width: 50px !important;
+  }
+  
+  .r6-tab-wrapper .rank img{
+    width: 70px !important;
+    position: relative;
+    bottom: 15px;
+    right: 8px;
+  }
+  
+  
+  .r6-tab-wrapper .username{
+    font-size: 1.3rem;
+    font-weight: 800;
+  }
+  
+  .r6-tab-wrapper .username i{
+    float: right;
+    font-size: 1rem !important;
+    font-weight: 300 !important;
+    color: #4a4a4ac7;
+  }
+  
+  .no-results{
+    font-weight: 600;
+    text-align: center;
+    color: #767676;
+  }
+  
+  .submit-form-row{
+    padding-top: 4rem !important;
+  }
+  
+  .submit-form-row .column:last-child{
+    text-align: center;
+  }
+  

@@ -1,0 +1,99 @@
+
+.header-logo-container{
+    padding: 0.5px !important;
+    height: 100%;
+  
+    padding-right: 15px !important;
+    padding-left: 25px !important;
+    margin-left: -35px;
+  }
+  .header-logo-container:hover{
+    background: unset !important;
+  }
+  
+  .header-logo-contains:hover img{
+    width: 56px !important;
+  }
+  .header-logo-container::before{
+    background: unset !important;
+  }
+  
+  .header-logo{
+    width: 55px !important;
+  }
+  
+  .upper-header-item{
+    height: 70%;
+    top: 15px;
+    display: inline-block !important;
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+    border-left: 2px solid white !important;
+    /* border-bottom-left-radius: 0px !important; */
+    border-bottom: unset !important;
+  }
+  
+  .upper-header-item:before{
+    border: unset !important;
+    background: unset !important;
+  }
+  .logo-title-main{
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+  }
+  
+  .logo-title-undercard{
+    margin-top: 0px;
+    text-align: left;
+    margin-left: 2px;
+    font-size: 1rem;
+  }
+  
+  .upper-menu-container{
+    margin-bottom: 0px !important;
+  }
+  .lower-menu-container{
+    margin-top: 0px !important;
+    background: #3daae9 !important;
+  }
+  
+  .lower-menu-container .item{
+    color: white !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+  }
+  
+  .lower-menu-container .item:not(.right):not([role="option"]){
+    font-size: 1.2rem;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  
+  .lower-menu-container [role="option"]{
+    font-size: 1.2rem !important;
+  }
+  
+  .lower-menu-container a.item{
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .home-report-button{
+    top: 1px !important;
+    font-weight: 400 !important;
+  }
+  
+  .search-player{
+    height: 100% !important;
+  }
+  
+  .search-player::before{
+    background: unset !important;
+  }
+  
+  .footer{
+    position:absolute;
+    left:0;
+    bottom:0;
+    right:0;
+  }

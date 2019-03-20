@@ -8,6 +8,10 @@ export const getRegion = () =>{
     }
 }
 
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 export const getRegionQuery = () =>{
     var region = getRegion();
     if(region === "GLOBAL"){

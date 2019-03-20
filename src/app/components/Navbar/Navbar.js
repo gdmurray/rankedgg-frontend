@@ -13,6 +13,7 @@ import {
   Dropdown,
   Icon,
 } from 'semantic-ui-react'
+import "./Navbar.css";
 
 const getWidth = () => {
     const isSSR = typeof window === 'undefined'
@@ -62,12 +63,8 @@ export default class Navbar extends Component {
     }
     render(){
         return (
-            <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
-        <Visibility
-          once={false}
-          onBottomPassed={this.showFixedMenu}
-          onBottomPassedReverse={this.hideFixedMenu}
-        >
+        <Responsive>
+        <Visibility>
           <Segment
             inverted
             textAlign='center'
@@ -109,7 +106,7 @@ export default class Navbar extends Component {
                         </Dropdown.Menu>
                     </Dropdown>
                 </Menu.Item>
-                <Menu.Item as='a'>Stats</Menu.Item>
+                <Menu.Item as='a' onClick={(e) => this.props.routeCallback("/operators")}>Operators</Menu.Item>
                 <Menu.Item as='a'>Most Wanted</Menu.Item>
                 <Menu.Item position='right'>
                   <Button secondary className="home-report-button" onClick={() => this.props.onReportCallback()}>

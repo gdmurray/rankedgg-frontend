@@ -8,6 +8,7 @@ export const SUBMIT_REPORT_USER = BACKEND_URL + "report/submit/";
 export const SEARCH_USER = BACKEND_URL + "search";
 export const TOP_REPORTED_OPERATOR_URL = BACKEND_URL + "home/top_operators";
 export const TOP_NOTORIOUS_PLAYERS_URL = BACKEND_URL + "home/notorious/";
+export const FETCH_OPERATORS_URL = BACKEND_URL + "operators";
 export const DEFAULT_REGION = "GLOBAL";
 export const REGION_TEXT_MAP = {
     "GLOBAL": "Global",
