@@ -167,7 +167,7 @@ export default class Operators extends Component{
         if(useRegion){
             query = getRegionQuery();
         }
-        console.log("Fetching Operators");
+        console.log("Fetching Operators from Server");
         axios.get(FETCH_OPERATORS_URL + query).then((response) => {
             this.setState({
                 operators: response.data,
@@ -196,6 +196,13 @@ export default class Operators extends Component{
         }else if(!attacker && defender){
             return "defender"
         }
+    }
+    
+    filterRegion = (value) => {
+        this.setState({
+            useRegion: value
+        });
+        this.fetchOperators();
     }
 
     openOperatorModal = (operator) => {
@@ -267,7 +274,7 @@ export default class Operators extends Component{
                         </Dropdown.Menu>
                     </Dropdown>
                     <Menu.Item>
-                        <Checkbox onChange={(e,{checked}) => {this.setState({useRegion: checked})}} toggle label='Filter Region'/>
+                        <Checkbox onChange={(e,{checked}) => {this.filterRegion(checked)}} toggle label='Filter Region'/>
                     </Menu.Item>
                     <Menu.Item>
                         <Checkbox onChange={(e,{checked}) => {this.setState({showUnreported: checked})}} toggle label='Show Unreported'/>
