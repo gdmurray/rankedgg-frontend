@@ -12,6 +12,13 @@ class OperatorCard extends Component{
         }
     }
     
+    componentWillReceiveProps(newProps){
+        if(newProps.data){
+            this.setState({
+                data: newProps.data
+            })
+        }
+    }
     render(){
         return (
         <Card onClick={(e) => {this.props.openModalCallback(this.state.data.name)}}color={this.state.data.type == 'attacker' ? 'blue' : 'orange'} className={'operator-card ' + this.state.data.type}>
@@ -69,7 +76,7 @@ class OperatorModal extends Component{
     }
     
     fetchPlayers = (operator) => {
-        const {useRegion} = this.state;
+        const {useRegion} = this.props;
         var query = "";
         if(useRegion){
             query = getRegionQuery();
@@ -278,9 +285,11 @@ export default class Operators extends Component{
                     <Menu.Item>
                         <Checkbox onChange={(e,{checked}) => {this.setState({showUnreported: checked})}} toggle label='Show Unreported'/>
                     </Menu.Item>
-                    <Menu.Item>
-                    <Input onChange={(e, {value}) => {this.setState({searchQuery: value})}}icon='search' placeholder='Search...' />
-                    </Menu.Item>
+                    <Menu.Menu position="right">
+                        <Menu.Item>
+                            <Input onChange={(e, {value}) => {this.setState({searchQuery: value})}}icon='search' placeholder='Search...' />
+                        </Menu.Item>
+                    </Menu.Menu>
                 </Menu>
                 <div className="operators-wrapper">
                     <Card.Group>
