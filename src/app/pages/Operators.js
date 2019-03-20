@@ -69,7 +69,12 @@ class OperatorModal extends Component{
     }
     
     fetchPlayers = (operator) => {
-        axios.get(TOP_NOTORIOUS_PLAYERS_URL + operator.toLowerCase() + getRegionQuery()).then(
+        const {useRegion} = this.state;
+        var query = "";
+        if(useRegion){
+            query = getRegionQuery();
+        }
+        axios.get(TOP_NOTORIOUS_PLAYERS_URL + operator.toLowerCase() + query).then(
             (response) => {
               this.setState({
                 playerList: response.data
@@ -247,7 +252,7 @@ export default class Operators extends Component{
         return (
             <div className="page-wrapper">
                 <Menu>
-                    <OperatorModal showModal={this.state.showModal} closeModalCallback={this.closeModalCallback} operator={this.state.selectedOperator} data={this.getOperatorData()}/>
+                    <OperatorModal showModal={this.state.showModal} closeModalCallback={this.closeModalCallback} operator={this.state.selectedOperator} data={this.getOperatorData()} useRegion={this.state.useRegion}/>
                     <Dropdown item text={this.getDropdownTitle()} closeOnChange={false}>
                         <Dropdown.Menu >
                             <Dropdown.Item active={attacker} onClick={(e) => this.setState({attacker: !attacker})}><Icon hidden={!attacker} color="blue" name="checkmark"/> Attackers</Dropdown.Item>
