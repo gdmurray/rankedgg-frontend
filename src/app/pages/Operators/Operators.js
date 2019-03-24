@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Menu, Button, Input, Card, Image, Icon, Dropdown, Checkbox, Modal, Header, Table} from "semantic-ui-react";
-import {FETCH_OPERATORS_URL, TOP_NOTORIOUS_PLAYERS_URL} from "../../constants";
-import {getRegionQuery} from "../../functions";
-
+import {Menu, Input, Card, Image, Icon, Dropdown, Checkbox} from "semantic-ui-react";
+import {FETCH_OPERATORS_URL} from "../../../constants";
+import {getRegionQuery} from "../../../functions";
+import OperatorModal from "./OperatorModal";
 const axios = require('axios');
+
 class OperatorCard extends Component{
     constructor(props){
         super(props);
@@ -21,7 +22,7 @@ class OperatorCard extends Component{
     }
     render(){
         return (
-        <Card onClick={(e) => {this.props.openModalCallback(this.state.data.name)}}color={this.state.data.type == 'attacker' ? 'blue' : 'orange'} className={'operator-card ' + this.state.data.type}>
+        <Card onClick={(e) => {this.props.openModalCallback(this.state.data.name)}}color={this.state.data.type === 'attacker' ? 'blue' : 'orange'} className={'operator-card ' + this.state.data.type}>
             <Image src={process.env.PUBLIC_URL + '/assets/operators/'+this.state.data.image}/>
             <Card.Content>
                 <Card.Header><Image className="operator-logo" src={process.env.PUBLIC_URL + '/assets/operators/' + this.state.data.logo}/> {this.state.data.name}</Card.Header>
@@ -34,112 +35,6 @@ class OperatorCard extends Component{
                 </a>
             </Card.Content>
         </Card>
-        )
-    }
-}
-
-class OperatorModal extends Component{
-    openModal = () => this.setState({ showModal: true })
-
-    closeModal = () => {
-        this.setState({ showModal: false });
-        this.props.closeModalCallback();
-    }
-
-    constructor(props){
-        super(props);
-        this.state = {
-            operator: props.operator,
-            isLoading: true,
-            playerList: null,
-            data: {
-                "image": null
-            },
-            showModal: props.showModal
-        }
-    }
-
-    componentWillReceiveProps(newProps){
-        if(newProps.operator !== undefined && newProps.operator !== null){
-            console.log("new operator " + newProps.data);
-            this.setState({
-                showModal: newProps.showModal,
-                operator: newProps.operator,
-                data: newProps.data
-            });
-            this.fetchPlayers(newProps.operator);
-        }else{
-            this.setState({
-                showModal: newProps.showModal
-            })
-        }
-    }
-    
-    fetchPlayers = (operator) => {
-        const {useRegion} = this.props;
-        var query = "";
-        if(useRegion){
-            query = getRegionQuery();
-        }
-        axios.get(TOP_NOTORIOUS_PLAYERS_URL + operator.toLowerCase() + query).then(
-            (response) => {
-              this.setState({
-                playerList: response.data
-              })
-            }
-          )
-    }
-
-    componentDidMount(){
-        const {operator} = this.state;
-        if(operator !== null && operator !== undefined){
-            this.fetchPlayers(operator);
-        }
-    }
-
-    renderTopPlayers(){
-        var players = [];
-
-        const { playerList } = this.state;
-        if(playerList != null){
-            for(var player of playerList){
-                players.push(<Table.Row key={player.user_id}>
-                    <Table.Cell>
-                        {player.username}
-                        </Table.Cell>
-                        <Table.Cell>{player.reports} {player.reports > 1 ? 'Reports' : 'Report'}</Table.Cell>
-                    </Table.Row>
-                );
-            }
-        }
-
-        return players;
-    }
-    render(){
-        const {showModal, operator} = this.state;
-        return (
-            <Modal open={showModal}
-            onOpen={this.openModal}
-            onClose={this.closeModal}>
-                <Modal.Header>{operator}</Modal.Header>
-                <Modal.Content image>
-                <Image wrapped size='medium' src={process.env.PUBLIC_URL + '/assets/operators/' + this.state.data.image} />
-                <Modal.Description>
-                    <Header>Attacker</Header>
-                    <Table celled>
-                    <Table.Header>
-                        <Table.Row>
-                        <Table.HeaderCell colSpan='2'>Most Notorious {this.state.data.name}s</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-
-                    <Table.Body>
-                        {this.renderTopPlayers()}
-                    </Table.Body>
-                    </Table>
-                </Modal.Description>
-                </Modal.Content>
-            </Modal>
         )
     }
 }
@@ -168,13 +63,17 @@ export default class Operators extends Component{
         this.fetchOperators();
     }
 
-    fetchOperators = () => {
+    getLocalRegionQuery = () => {
         var query = "";
         if(this.state.useRegion){
             query = getRegionQuery();
         }
+        return query;
+    }
+
+    fetchOperators = () => {
         console.log("Fetching Operators from Server");
-        axios.get(FETCH_OPERATORS_URL + query).then((response) => {
+        axios.get(FETCH_OPERATORS_URL + this.getLocalRegionQuery()).then((response) => {
             this.setState({
                 operators: response.data,
                 operatorMap: Object.assign({}, ...(response.data.map(item => ({ [item.name]: item }) )))
@@ -233,7 +132,7 @@ export default class Operators extends Component{
                 ops = ops.filter(op => op.type === this.getSelected());
             }
 
-            if(order_by == 1){
+            if(order_by === 1){
                 ops.sort(function(a, b){
                     if(a.name < b.name) { return -1; }
                     if(a.name > b.name) { return 1; }
@@ -261,7 +160,7 @@ export default class Operators extends Component{
         }
     }
     render(){
-        const {operator_type, order_by, attacker, defender} = this.state;
+        const {order_by, attacker, defender} = this.state;
         return (
             <div className="page-wrapper">
                 <Menu>

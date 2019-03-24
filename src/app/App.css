@@ -120,6 +120,59 @@
 .operator-meta{
   padding-left: 44px;
 }
+
+.operator-modal-content{
+  width: 100% !important;
+  margin-bottom: 20px;
+}
+
+.leaderboard-wrapper{
+  padding: 1rem;
+}
+
+.leaderboard-row .ranking{
+  text-align: center !important;
+}
+
+.leaderboard-row .user-info{
+  width: 25%;
+}
+
+.leaderboard-row .ban-info{
+  display: flex;
+  flex-direction: row;
+  height: 55px;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+}
+
+.leaderboard-row .ban-info h5{
+  margin-bottom: 0.3rem;
+  padding-left: 1.5rem;
+}
+
+.leaderboard-row .ban-info h5.attacker{
+  color: #2185d0;
+}
+
+.leaderboard-row .ban-info .not-found{
+  color: #db2828;
+}
+
+.leaderboard-row .ban-info h5.defender{
+  color: #f26202;
+}
+.leaderboard-row .ban-info > div{
+  flex: 1;
+}
+
+.leaderboard-row .ban-info > div > div {
+  padding-left: 1.5rem;
+}
+
+.table-pagination .item:focus{
+  outline: unset !important;
+}
 /*.select-operator-dialogue svg path{
   fill: black !important;
 }

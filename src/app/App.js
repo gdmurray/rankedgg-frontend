@@ -4,10 +4,10 @@ import './App.css';
 import Home from './pages/Home';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer';
-import { Button, Header, Image, Modal, Icon } from 'semantic-ui-react'
 import ReportModal from './components/Report/ReportModal';
 import SearchResults from './components/Search/Search';
-import Operators from './pages/Operators';
+import Operators from './pages/Operators/Operators';
+import Leaderboard from './pages/Leaderboard';
 
 class App extends Component {
   constructor(props){
@@ -22,7 +22,7 @@ class App extends Component {
     this.props.history.push('/');
   }
   searchUser = (query) => {
-    if(query == null || query == ""){
+    if(query === null || query === ""){
         // TODO: error handling
     }else{
       this.setState({
@@ -57,13 +57,14 @@ class App extends Component {
     const App = () => (
       <div className="App-body">
         <ReportModal showModal={this.state.showModal} closeModalCallback={this.closeModalCallback}/>
-        <Navbar routeCallback={this.routeCallback}onReportCallback={this.openModalCallback} homeCallback={this.goHome} refreshCallback={this.refresh} searchCallback={this.searchUser}>
+        <Navbar routeCallback={this.routeCallback} onReportCallback={this.openModalCallback} homeCallback={this.goHome} refreshCallback={this.refresh} searchCallback={this.searchUser}>
         </Navbar>
         <div className="App-content">
           <Switch>
             <Route exact path='/' component={Home}/>
-            <Route exact path='/search' component={SearchResults} />}/>
+            <Route exact path='/search' component={SearchResults}/>
             <Route exact path="/operators" component={Operators}/>
+            <Route exact path="/leaderboard" component={Leaderboard}/>
           </Switch>
         </div>
         <Footer/>

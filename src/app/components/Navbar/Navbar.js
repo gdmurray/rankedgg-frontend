@@ -15,14 +15,6 @@ import {
 } from 'semantic-ui-react'
 import "./Navbar.css";
 
-const getWidth = () => {
-    const isSSR = typeof window === 'undefined'
-  
-    return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
-  }
-
-
-
 export default class Navbar extends Component {
     constructor(props){
         super(props);
@@ -80,7 +72,7 @@ export default class Navbar extends Component {
             >
               <Container>
                 <Menu.Item className="header-logo-container" onClick={() => this.props.homeCallback()}>
-                    <img className="header-logo" src={process.env.PUBLIC_URL + '/img/logo.png'}></img>
+                    <img className="header-logo" src={process.env.PUBLIC_URL + '/img/logo.png'} alt="logo"></img>
                 </Menu.Item>
                 <Menu.Item className="upper-header-item">
                     <h4 className="logo-title-main">National Ranked Agency</h4>
@@ -107,7 +99,7 @@ export default class Navbar extends Component {
                     </Dropdown>
                 </Menu.Item>
                 <Menu.Item as='a' onClick={(e) => this.props.routeCallback("/operators")}>Operators</Menu.Item>
-                <Menu.Item as='a'>Most Wanted</Menu.Item>
+                <Menu.Item as='a' onClick={(e) => this.props.routeCallback("/leaderboard")}>Leaderboard</Menu.Item>
                 <Menu.Item position='right'>
                   <Button secondary className="home-report-button" onClick={() => this.props.onReportCallback()}>
                     Report Player

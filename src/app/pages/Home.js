@@ -1,33 +1,14 @@
 import React, { Component } from 'react';
-import {Grid, Table, Icon} from 'semantic-ui-react';
+import {Grid, Table} from 'semantic-ui-react';
 import styled from 'styled-components'
 import {TOP_REPORTED_OPERATOR_URL, TOP_NOTORIOUS_PLAYERS_URL} from "../../constants";
-import {getRegionQuery} from "../../functions";
+import {getRegionQuery, getOpAsset} from "../../functions";
 const axios = require('axios');
 //import { Link } from 'react-router-dom';
 /*
               <AttackerBackground src={process.env.PUBLIC_URL + "/img/bluesmoke.png"}/>
                 <DefenderBackground src={process.env.PUBLIC_URL + "/img/orangesmoke.png"}/>
 */
-const AttackerBackground = styled.img`
-width: 100%;
-height: auto;
-position: absolute;
-left: 30px;
-top: 230px;
-/* opacity: 0.8; */
-z-index: 999;
-`
-
-const DefenderBackground = styled.img`
-position: absolute;
-right: 30px;
-top: 200px;
-z-index: 999;
-width: 100%;
-height: auto;
-`
-
 const AttackerImage = styled.img`
 width: 350px;
 `
@@ -121,9 +102,9 @@ class Home extends Component {
       if(top_data.attacker){
         return (
             <div>
-              <AttackerImage src={process.env.PUBLIC_URL + "/assets/operators/"+top_data.attacker.operator.image}/>
+              <AttackerImage src={getOpAsset(top_data.attacker.operator.image)}/>
               <span>{top_data.attacker.operator.name}</span>
-              <img src={process.env.PUBLIC_URL + "/img/bluesmoke.png"} className="smoke-image" />
+              <img src={process.env.PUBLIC_URL + "/img/bluesmoke.png"} alt="blue-smoke" className="smoke-image" />
               <Table celled className="ranking-table">
                   <Table.Header>
                     <Table.Row>
@@ -141,7 +122,7 @@ class Home extends Component {
         return (
           <div>
             <span className="no-data">No Attacker Data</span>
-              <img src={process.env.PUBLIC_URL + "/img/bluesmoke.png"} className="smoke-image" />
+              <img src={process.env.PUBLIC_URL + "/img/bluesmoke.png"} alt="blue-smoke" className="smoke-image" />
           </div>
         )
       }
@@ -154,9 +135,9 @@ class Home extends Component {
       if(top_data.defender){
         return (
             <div>
-                <DefenderImage src={process.env.PUBLIC_URL + "/assets/operators/"+top_data.defender.operator.image}/>
+                <DefenderImage src={getOpAsset(top_data.defender.operator.image)}/>
                 <span>{top_data.defender.operator.name}</span>
-                <img src={process.env.PUBLIC_URL + "/img/orangesmoke.png"} className="smoke-image" />
+                <img src={process.env.PUBLIC_URL + "/img/orangesmoke.png"} alt="orange-smoke" className="smoke-image" />
                 <Table celled striped className="ranking-table">
                   <Table.Header>
                     <Table.Row>
@@ -174,7 +155,7 @@ class Home extends Component {
         return (
           <div>
             <span className="no-data">No Defender Data</span>
-              <img src={process.env.PUBLIC_URL + "/img/orangesmoke.png"} className="smoke-image" />
+              <img src={process.env.PUBLIC_URL + "/img/orangesmoke.png"} alt="orange-smoke" className="smoke-image" />
           </div>
         )
       }

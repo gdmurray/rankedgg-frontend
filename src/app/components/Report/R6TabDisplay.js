@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Dimmer, Loader, Popup, Icon} from 'semantic-ui-react';
 import {SEARCH_R6TAB_USERNAME_URL, REGION_TEXT_MAP} from '../../../constants';
+import {getAsset} from '../../../functions';
+
 const axios = require('axios');
 export default class R6TabDisplay extends Component{
 
@@ -63,24 +65,24 @@ export default class R6TabDisplay extends Component{
     }
     render(){
         const {isSearching, isFound, username} = this.state;
-        if(isSearching == true){
+        if(isSearching === true){
             return (
                 <Dimmer active inverted>
                     <Loader inverted>Loading</Loader>
                 </Dimmer>
             )
-        }else if(isFound == false && username !== undefined){
+        }else if(isFound === false && username !== undefined){
             return (
                 <div className="no-results">No results for {this.state.username}</div>
             )
-        }else if(isFound == true){
+        }else if(isFound === true){
             return (
                 <div className="r6-tab-wrapper">
                     <div className="pfp">
-                        <img src={this.state.data.image}></img>
+                        <img src={this.state.data.image} alt="profile"></img>
                     </div>
                     <div className="rank">
-                        <img src={process.env.PUBLIC_URL + "/assets/ranks/" + this.state.data.rank + '.svg'}></img>
+                        <img src={getAsset("ranks", this.state.data.rank + '.svg')} alt="rank"></img>
                     </div>
                     <div className="username">
                         <span>{this.state.username}</span>

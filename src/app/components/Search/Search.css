@@ -1,95 +1,95 @@
 
 .search-results-wrapper{
-    padding: 1rem;
-  }
-  .search-wrapper{
-    padding: 1rem;
-  }
+  padding: 1rem;
+}
+.search-wrapper{
+  padding: 1rem;
+}
+
+.search-result-item{
+  padding-left: 1.5rem !important;
+  display: flex;
+  flex-direction: row;
+  padding: 0.75rem;
+  border-radius: .25rem;
+  -webkit-box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  background: rgba(0,0,0,.80);
+  color: white !important;
+}
   
-  .search-result-item{
-    padding-left: 1.5rem !important;
-    display: flex;
-    flex-direction: row;
-    padding: 0.75rem;
-    border-radius: .25rem;
-    -webkit-box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-    background: rgba(0,0,0,.80);
-    color: white !important;
-  }
-  
-  .search-result-user-info{
-    flex: 1 0 0;
-    display: inline-flex
-  }
-  
-  .search-result-user-info > div:last-child{
-   flex: 3 0 0;
-  }
-  
-  .search-result-user-info > div:not(:last-child){
-    flex: 1 0 0;
-  }
-  
-  .search-result-ban-info{
-    flex: 1 0 0;
-    display: inline-flex
-  }
-  
-  .search-result-ban-info > div{
-    flex: 1 0 0;
-  }
-  
-  .search-result-item .rank img{
-    width: 70px !important;
-    position: relative;
-    right: 8px;
-  }
-  .search-result-item .pfp img{
-    width: 50px !important;
-    top: 14px;
-    position: relative;
-  }
-  
-  .search-result-item .username{    
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: left;
-    font-size: 1.3rem;
-    font-weight: 800;
-  }
-  
-  .search-result-ban-info > div{
-    display: inline-grid;
-  }
-  
-  .search-result-ban-info > div > div{
-    display: inline-flex;
-    height: 40px;
-  }
-  
-  .search-result-ban-info > div > div img{
-    width: 40px;
-  }
-  
-  .search-result-ban-info > div > span{
-    height: 20px;
-    /*color: rgba(0,0,0,.4);*/
-    font-weight: 500;
-  }
-  
-  .search-result-ban-info > div > div span{
-    font-size: 1.2rem;
-    font-weight: 700;
-    /* padding-left: 1.2rem; */
-    margin-left: 11px;
-    margin-top: 7px;
-  }
-  
-  .search-result-ban-info .no-report{
-    height: 30px;
-    color: #db2828;
-    font-weight: 900;
-    font-size: 0.9rem;
-  }
+.search-result-user-info{
+  flex: 1 0 0;
+  display: inline-flex
+}
+
+.search-result-user-info > div:last-child{
+  flex: 3 0 0;
+}
+
+.search-result-user-info > div:not(:last-child){
+  flex: 1 0 0;
+}
+
+.search-result-ban-info{
+  flex: 1 0 0;
+  display: inline-flex
+}
+
+.search-result-ban-info > div{
+  flex: 1 0 0;
+}
+
+.search-result-item .rank img{
+  width: 70px !important;
+  position: relative;
+  right: 8px;
+}
+.search-result-item .pfp img{
+  width: 50px !important;
+  top: 14px;
+  position: relative;
+}
+
+.search-result-item .username{    
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.search-result-ban-info > div{
+  display: inline-grid;
+}
+
+.search-result-ban-info > div > div{
+  display: inline-flex;
+  height: 40px;
+}
+
+.search-result-ban-info > div > div img{
+  width: 40px;
+}
+
+.search-result-ban-info > div > span{
+  height: 20px;
+  /*color: rgba(0,0,0,.4);*/
+  font-weight: 500;
+}
+
+.search-result-ban-info > div > div span{
+  font-size: 1.2rem;
+  font-weight: 700;
+  /* padding-left: 1.2rem; */
+  margin-left: 11px;
+  margin-top: 7px;
+}
+
+.search-result-ban-info .no-report{
+  height: 30px;
+  color: #db2828;
+  font-weight: 900;
+  font-size: 0.9rem;
+}

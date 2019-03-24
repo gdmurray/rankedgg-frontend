@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {SEARCH_USER} from "../../../constants";
-import {getRegion} from "../../../functions";
-import {Item} from "semantic-ui-react";
+import {getRegionQuery, getOpAsset, getAsset} from "../../../functions";
+import {Segment, Loader} from "semantic-ui-react";
 import "./Search.css";
 
 const axios = require('axios');
@@ -24,7 +24,7 @@ class SearchResultItem extends Component{
         }else{
             return (
                 <div>
-                    <img src={process.env.PUBLIC_URL + "/assets/operators/" + data.attacker.logo}></img>
+                    <img src={getOpAsset(data.attacker.logo)} alt="attacker-logo"></img>
                     <span>{data.attacker.name}</span>
                 </div>
             )
@@ -40,7 +40,7 @@ class SearchResultItem extends Component{
         }else{
             return (
                 <div>
-                    <img src={process.env.PUBLIC_URL + "/assets/operators/" + data.defender.logo}></img>
+                    <img src={getOpAsset(data.defender.logo)} alt="defender-logo"></img>
                     <span>{data.defender.name}</span>
                 </div>
             )
@@ -51,10 +51,10 @@ class SearchResultItem extends Component{
             <div className="search-result-item">
                 <div className="search-result-user-info">
                     <div className="pfp">
-                        <img src={this.state.data.image}></img>
+                        <img src={this.state.data.image} alt="profile"></img>
                     </div>
                     <div className="rank">
-                    <img src={process.env.PUBLIC_URL + "/assets/ranks/" + this.state.data.current_rank + '.svg'} ></img>
+                    <img src={getAsset("ranks", this.state.data.current_rank + '.svg')} alt="rank"></img>
                     </div>
                     <div className="username">
                         {this.state.data.username}
@@ -79,29 +79,23 @@ export default class SearchResults extends Component{
         super(props);
         this.state = {
             searchQuery: null,
-            searchResults: null
+            searchResults: null,
+            isLoading: true
         }
     }
 
     componentDidMount(){
         const path = this.props.location.search;
-        console.log(path);
         if(path.length > 2){
             var editedPath = path.replace("?=", '');
-            var region = getRegion();
-            if (region != "GLOBAL"){
-                var query = "&region="+region;
-            }else{
-                var query = "";
-            }
+            var query = getRegionQuery(true);
             axios.get(SEARCH_USER + "?query="+editedPath+query).then((response) => {
                 this.setState({
                     searchQuery: editedPath,
-                    searchResults: response.data
+                    searchResults: response.data,
+                    isLoading: false
                 })
             });
-
-
         }
         
     }
@@ -115,7 +109,7 @@ export default class SearchResults extends Component{
                 i++;
             }
         }
-        if(results.length == 0){
+        if(results.length === 0){
             return (
                 <div>No Results Found</div>
             )
@@ -130,9 +124,12 @@ export default class SearchResults extends Component{
                 <div className="search-results-title">
                 <h2>Search Results for: {this.state.searchQuery}</h2>
                 </div>
-                <div className="search-results-wrapper">
-                    {this.createResults()}
-                </div>
+                <Segment>
+                    <Loader active={this.state.isLoading}/>
+                    <div className="search-results-wrapper">
+                        {this.createResults()}
+                    </div>
+                </Segment>
             </div>
         )
     }

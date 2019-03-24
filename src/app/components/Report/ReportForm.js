@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Form,Grid, Dropdown} from 'semantic-ui-react'
-import SelectOperatorDialogue, {Attacker, Defender} from './SelectOperatorDialogue';
-import {OPERATOR_DROPDOWN_URL, SUBMIT_REPORT_USER, REGION_OPTIONS, DEFAULT_REGION} from '../../../constants';
+import SelectOperatorDialogue from './SelectOperatorDialogue';
+import {OPERATOR_DROPDOWN_URL, SUBMIT_REPORT_USER, REGION_OPTIONS, Attacker, Defender} from '../../../constants';
 import {getRegion} from "../../../functions";
 import R6TabDisplay from './R6TabDisplay';
 const axios = require('axios');
@@ -22,12 +22,13 @@ export default class ReportForm extends Component{
             operatorTypeSelected: null,
             selectedOperator: null,
             validUser: false,
+            usernameQuery: null,
             username: null
         }
     }
 
     canSubmit = () => {
-        var validUser = (this.state.validUser == true);
+        var validUser = (this.state.validUser === true);
         var typeSelected = (this.state.operatorTypeSelected != null);
         var opSelected = (this.state.selectedOperator != null);
         if(validUser && typeSelected && opSelected){
@@ -37,20 +38,25 @@ export default class ReportForm extends Component{
         }
     }
     searchFound = (username) => {
-        if(username == this.state.username){
+        console.log("search found " + username);
+        if(username.toLowerCase() === this.state.usernameQuery.toLowerCase()){
             this.setState({
                 isSearching: false,
                 validUser: true,
-                usernameError: false
+                usernameError: false,
+                username: username
             });
         }else{
             console.log("received searchFound for non-active username")
         }
     }
 
+    componentDidUpdate(){
+        console.log("Current Confirmed Username: " + this.state.username);
+    }
     searchError = (username) => {
-        if(!(this.state.username == "" || this.state.username == undefined)){
-            if(username == this.state.username){
+        if(!(this.state.usernameQuery === "" || this.state.usernameQuery === undefined)){
+            if(username.toLowerCase() === this.state.usernameQuery.toLowerCase()){
                 this.setState({
                     usernameError: true,
                     isSearching: false
@@ -69,10 +75,10 @@ export default class ReportForm extends Component{
         if(this.timeout) clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
             console.log("Changed username to " + searchText);
-            if(searchText != ""){
+            if(searchText !== ""){
                 this.setState({
                     usernameError: false,
-                    username: searchText,
+                    usernameQuery: searchText,
                     validUser: false,
                     isSearching: true
                 })
@@ -101,9 +107,9 @@ export default class ReportForm extends Component{
     };
     
     getOperatorOptions = () => {
-        if(this.state.operatorTypeSelected == Attacker){
+        if(this.state.operatorTypeSelected === Attacker){
             return this.state.attackerOptions;
-        }else if(this.state.operatorTypeSelected == Defender){
+        }else if(this.state.operatorTypeSelected === Defender){
             return this.state.defenderOptions;
         }else{
             return null;
@@ -126,11 +132,11 @@ export default class ReportForm extends Component{
     componentDidMount(){
         axios.get(OPERATOR_DROPDOWN_URL).then((response) => {
             this.setState({
-                attackerOptions: response.data.filter(elem => elem.type == Attacker).map(operator => ({ 
+                attackerOptions: response.data.filter(elem => elem.type === Attacker).map(operator => ({ 
                         text: operator.name,
                         value: operator.name.toLowerCase(),
                         image: {avatar: true, src: process.env.PUBLIC_URL + '/assets/operators/' + operator.logo}})),
-                defenderOptions: response.data.filter(elem => elem.type == Defender).map(operator => ({ 
+                defenderOptions: response.data.filter(elem => elem.type === Defender).map(operator => ({ 
                     text: operator.name,
                     value: operator.name.toLowerCase(),
                     image: {avatar: true, src: process.env.PUBLIC_URL + '/assets/operators/' + operator.logo}})),
@@ -140,7 +146,7 @@ export default class ReportForm extends Component{
         });
     }
     render(){
-        const { value, username} = this.state
+        const {usernameQuery} = this.state
         return (
             <Form className="report-username-form">
                 <Grid divided='vertically'>
@@ -157,7 +163,7 @@ export default class ReportForm extends Component{
                             <Form.Input error={this.state.usernameError} loading={this.state.isSearching} onChange={(evt) => this.scanSearch(evt)} fluid label='Username' placeholder='Username' />
                         </Grid.Column>
                         <Grid.Column>
-                            <R6TabDisplay username={username} region={this.state.regionSelected} endSearchCallback={this.searchFound} searchFailedCallback={this.searchError}/>
+                            <R6TabDisplay username={usernameQuery} region={this.state.regionSelected} endSearchCallback={this.searchFound} searchFailedCallback={this.searchError}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
