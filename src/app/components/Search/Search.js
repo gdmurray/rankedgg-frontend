@@ -115,7 +115,7 @@ export default class SearchResults extends Component{
                 i++;
             }
         }
-        if(results.length === 0){
+        if(results.length === 0 && !this.state.isLoading){
             return (
                 <div>No Results Found</div>
             )
