@@ -95,6 +95,12 @@ export default class SearchResults extends Component{
                     searchResults: response.data,
                     isLoading: false
                 })
+            }).catch((error) => {
+                this.setState({
+                    isLoading: false,
+                    searchResults: [],
+                    searchQuery: editedPath
+                })
             });
         }
         
